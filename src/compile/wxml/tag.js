@@ -43,7 +43,7 @@ function linkAttrs(attrsList) {
   const result = [];
   attrsList.forEach((attrInfo) => {
     const { name, value } = attrInfo;
-    result.push(`${name}=${value}`);
+    result.push(`${name}="${value}"`);
   });
   return result.join(' ');
 }
