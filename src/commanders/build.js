@@ -3,6 +3,7 @@ const { createDist } = require('../toolkit/createDist');
 const { compileJson } = require('../compile/json');
 const { getModuleDeps } = require('../toolkit/getModuleDeps');
 const { compileWxml } = require('../compile/wxml');
+const { compileJS } = require('../compile/js');
 
 function build(publicPath) {
   // 保存编译相关信息
@@ -13,8 +14,11 @@ function build(publicPath) {
   compileJson();
 
   const moduleDeps = getModuleDeps();
-
+  // wxml编译
   compileWxml(moduleDeps);
+
+  // js编译
+  compileJS();
 }
 
 module.exports = {
