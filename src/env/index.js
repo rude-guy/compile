@@ -8,7 +8,6 @@ function saveEnvInfo() {
   saveProjectConfig();
   saveAppConfig();
   saveModuleConfig();
-  console.log(configInfo);
 }
 
 // 获取应用配置信息
@@ -21,6 +20,12 @@ function getModuleConfigInfo() {
   return configInfo.moduleInfo;
 }
 
+// 获取工作目录的路径
+function getWorkPath() {
+  return pathInfo.workPath;
+}
+
+// 获取输出路径
 function getTargetPath() {
   return pathInfo.targetPath;
 }
@@ -63,6 +68,7 @@ function getJsonContentByFullPath(path) {
 
 module.exports = {
   saveEnvInfo,
+  getWorkPath,
   getTargetPath,
   getAppConfigInfo,
   getModuleConfigInfo,
