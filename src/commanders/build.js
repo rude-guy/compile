@@ -8,7 +8,7 @@ const { compileWxss } = require('../compile/wxss');
 
 function build(publicPath) {
   // 保存编译相关信息
-  saveEnvInfo();
+  saveEnvInfo(publicPath);
   // 创建dist文件夹
   createDist();
   // 编译配置文件

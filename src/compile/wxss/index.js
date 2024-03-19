@@ -15,7 +15,7 @@ async function compileWxss(moduleDeps) {
       moduleId: moduleDeps[path].moduleId,
     });
   }
-  fs.writeFileSync(`${distPath}/app.wxss`, cssMerge, 'utf-8');
+  fs.writeFileSync(`${distPath}/style.css`, cssMerge, 'utf-8');
 }
 
 async function getCompileCssCode(opts) {

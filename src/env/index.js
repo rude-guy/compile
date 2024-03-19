@@ -1,12 +1,14 @@
 const fs = require('fs');
+const path = require('path');
 
 const pathInfo = {};
 const configInfo = {};
 
-function saveEnvInfo() {
-  savePathInfo();
+function saveEnvInfo(publicPath) {
+  saveWorkPath();
   saveProjectConfig();
   saveAppConfig();
+  saveTargetPath(publicPath);
   saveModuleConfig();
 }
 
@@ -18,6 +20,11 @@ function getAppConfigInfo() {
 // 获取所有应用页面的配置信息
 function getModuleConfigInfo() {
   return configInfo.moduleInfo;
+}
+
+// 获取项目配置信息
+function getProjectConfigInfo() {
+  return configInfo.projectInfo;
 }
 
 // 获取工作目录的路径
@@ -40,11 +47,19 @@ function saveModuleConfig() {
   });
 }
 
-function savePathInfo() {
+function saveTargetPath(publicPath) {
+  const { appid } = getProjectConfigInfo();
+  // 输出路径
+  if (publicPath) {
+    pathInfo.targetPath = path.resolve(pathInfo.workPath, `${publicPath}/${appid}`);
+  } else {
+    pathInfo.targetPath = `${pathInfo.workPath}/dist`;
+  }
+}
+
+function saveWorkPath() {
   // 工作区间
   pathInfo.workPath = process.cwd();
-  // 输出路径
-  pathInfo.targetPath = `${pathInfo.workPath}/dist`;
 }
 
 // 读取project.config.json
