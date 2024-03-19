@@ -1,0 +1,4 @@
+{
+  "prettier.configPath": ".prettierrc.js",
+  "cSpell.words": ["Wxml", "Wxss"]
+}

@@ -4,6 +4,7 @@ const { compileJson } = require('../compile/json');
 const { getModuleDeps } = require('../toolkit/getModuleDeps');
 const { compileWxml } = require('../compile/wxml');
 const { compileJS } = require('../compile/js');
+const { compileWxss } = require('../compile/wxss');
 
 function build(publicPath) {
   // 保存编译相关信息
@@ -16,9 +17,10 @@ function build(publicPath) {
   const moduleDeps = getModuleDeps();
   // wxml编译
   compileWxml(moduleDeps);
-
   // js编译
   compileJS();
+  // wxss编译
+  compileWxss(moduleDeps);
 }
 
 module.exports = {
