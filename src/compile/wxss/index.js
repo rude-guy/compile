@@ -62,6 +62,13 @@ function addScopeId(opts) {
               if (!moduleId) {
                 return;
               }
+              if (/\%$/.test(rule.selector)) {
+                return;
+              }
+              if (/::|:/.test(rule.selector)) {
+                rule.selector = rule.selector.replace(/(::|:)/, `[data-v-${moduleId}]$1`);
+                return;
+              }
               rule.selector += `[data-v-${moduleId}]`;
             });
           },

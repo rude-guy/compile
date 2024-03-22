@@ -33,7 +33,7 @@ function getPropsStr(attrs) {
     if (name === 'wx:if') {
       attrsList.push({
         name: 'v-if',
-        value: getIfExpression(value),
+        value: getExpression(value),
       });
       return;
     }
@@ -51,6 +51,13 @@ function getPropsStr(attrs) {
       });
       return;
     }
+    if (name === 'style') {
+      attrsList.push({
+        name: 'v-bind:style',
+        value: getStyleExpression(value.trim()),
+      });
+      return;
+    }
     attrsList.push({
       name,
       value,
@@ -60,14 +67,23 @@ function getPropsStr(attrs) {
   return linkAttrs(attrsList);
 }
 
+function getStyleExpression(str) {
+  const reg = /([^:]+):([^;]+);?/g;
+  const cssRules = [];
+  for (const matchs of str.matchAll(reg)) {
+    cssRules.push(`'${matchs[1]}':${getExpression(matchs[2])}`);
+  }
+  return `{${cssRules.join(',')}}`;
+}
+
 function getForExpression(str) {
-  const list = getIfExpression(str);
+  const list = getExpression(str);
   return `(item, index) in ${list}`;
 }
 
-function getIfExpression(str) {
+function getExpression(str) {
   const reg = /\{\{(.*)\}\}/;
-  return reg.exec(str)[1];
+  return str.replace(reg, '$1');
 }
 
 function linkAttrs(attrsList) {
