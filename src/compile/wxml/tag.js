@@ -1,4 +1,4 @@
-const tagWhiteList = ['view', 'text'];
+const tagWhiteList = ['view', 'text', 'image'];
 
 function markTagEnd(tag) {
   return `</ui-${tag}>`;
