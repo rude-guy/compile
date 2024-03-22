@@ -30,6 +30,13 @@ function getPropsStr(attrs) {
       });
       return;
     }
+    if (name === 'wx:if') {
+      attrsList.push({
+        name: 'v-if',
+        value: getExpression(value),
+      });
+      return;
+    }
     attrsList.push({
       name,
       value,
@@ -37,6 +44,11 @@ function getPropsStr(attrs) {
   });
 
   return linkAttrs(attrsList);
+}
+
+function getExpression(str) {
+  const reg = /\{\{(.*)\}\}/;
+  return reg.exec(str)[1];
 }
 
 function linkAttrs(attrsList) {
