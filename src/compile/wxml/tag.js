@@ -33,7 +33,21 @@ function getPropsStr(attrs) {
     if (name === 'wx:if') {
       attrsList.push({
         name: 'v-if',
-        value: getExpression(value),
+        value: getIfExpression(value),
+      });
+      return;
+    }
+    if (name === 'wx:for') {
+      attrsList.push({
+        name: 'v-for',
+        value: getForExpression(value),
+      });
+      return;
+    }
+    if (name === 'wx:key') {
+      attrsList.push({
+        name: 'v-bind:key',
+        value: `item.${value}`,
       });
       return;
     }
@@ -46,7 +60,12 @@ function getPropsStr(attrs) {
   return linkAttrs(attrsList);
 }
 
-function getExpression(str) {
+function getForExpression(str) {
+  const list = getIfExpression(str);
+  return `(item, index) in ${list}`;
+}
+
+function getIfExpression(str) {
   const reg = /\{\{(.*)\}\}/;
   return reg.exec(str)[1];
 }
