@@ -1,4 +1,4 @@
-const tagWhiteList = ['view'];
+const tagWhiteList = ['view', 'text'];
 
 function markTagEnd(tag) {
   return `</ui-${tag}>`;
@@ -55,6 +55,13 @@ function getPropsStr(attrs) {
       attrsList.push({
         name: 'v-bind:style',
         value: getStyleExpression(value.trim()),
+      });
+      return;
+    }
+    if (/\{\{(.*)\}\}/.test(value)) {
+      attrsList.push({
+        name: `v-bind:${name}`,
+        value: getExpression(value),
       });
       return;
     }
